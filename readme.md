@@ -24,7 +24,8 @@ Demo: https://www.loom.com/share/806f70fae81248b48ebc4ee8b45c6165?sid=50d207fe-5
 <img width="1018" height="543" alt="image" src="https://github.com/user-attachments/assets/529e15c1-17e5-4e16-ad8d-0c6dd77701a0" />
 
 
-Base Model Deployment in Azure AI Foundry:
+
+## ** Base Model Deployment in Azure AI Foundry:
 <img width="730" height="302" alt="image" src="https://github.com/user-attachments/assets/094bfd91-236e-43b0-80ef-0d514a499fcf" />
 
 Agent & Plugin Mapping:
@@ -74,6 +75,7 @@ pip install -r requirements.txt
 finally,Run the job:
 
 python .\network_fault_detection.py 
+
 
 
 
