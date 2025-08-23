@@ -1,0 +1,6 @@
+[2025-08-22 10:42:11] CRITICAL: Core router CR-45 unreachable. Routing table updates failing.
+
+[2025-08-22 19:54:17] ALERT  Ops: Node CR-45 restart requested.
+[2025-08-22 19:54:17] INFO   Node-CR-45: Restart initiated.
+[2025-08-22 19:54:17] INFO   Node-CR-45: Services up. Heartbeat OK.
+[2025-08-22 19:54:17] INFO   KPIs: RRC setup success 98%, PRB util 54%, packet loss 0.3%. Stabilized.

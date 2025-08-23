@@ -1,0 +1,18 @@
+[2025-08-22 10:14:32] ERROR: Fiber node down in Zone-12. Packet loss 100%. Restart attempt failed.
+
+[2025-08-22 19:53:00] ALERT  Ops: Unable to fully remediate. Escalating to NOC L2.
+[2025-08-22 19:53:00] INFO   Ticket: Created incident with logs attached.
+[2025-08-22 20:45:31] ALERT  Ops: Unable to fully remediate. Escalating to NOC L2.
+[2025-08-22 20:45:31] INFO   Ticket: Created incident with logs attached.
+[2025-08-23 11:47:20] ALERT  Ops: Unable to fully remediate. Escalating to NOC L2.
+[2025-08-23 11:47:20] INFO   Ticket: Created incident with logs attached.
+[2025-08-23 11:54:09] ALERT  Ops: Unable to fully remediate. Escalating to NOC L2.
+[2025-08-23 11:54:09] INFO   Ticket: Created incident with logs attached.
+[2025-08-23 11:57:56] ALERT  Ops: Unable to fully remediate. Escalating to NOC L2.
+[2025-08-23 11:57:56] INFO   Ticket: Created incident with logs attached.
+[2025-08-23 12:03:45] ALERT  Ops: Unable to fully remediate. Escalating to NOC L2.
+[2025-08-23 12:03:45] INFO   Ticket: Created incident with logs attached.
+[2025-08-23 12:06:35] ALERT  Ops: Unable to fully remediate. Escalating to NOC L2.
+[2025-08-23 12:06:35] INFO   Ticket: Created incident with logs attached.
+[2025-08-23 13:02:57] ALERT  Ops: Unable to fully remediate. Escalating to NOC L2.
+[2025-08-23 13:02:57] INFO   Ticket: Created incident with logs attached.

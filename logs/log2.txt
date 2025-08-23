@@ -1,0 +1,5 @@
+[2025-08-22 10:26:47] WARNING: High latency detected at 5G tower ID: TWR-889. RTT > 300ms.
+
+[2025-08-22 19:53:29] ALERT  Ops: QoS profile switched to 'voice'.
+[2025-08-22 19:53:29] INFO   PolicyCtrl: GBR bearers prioritized, jitter budget tuned.
+[2025-08-22 19:53:29] INFO   KPIs: MOS 4.3, jitter 9ms, loss 0.2%. Voice stabilized.
