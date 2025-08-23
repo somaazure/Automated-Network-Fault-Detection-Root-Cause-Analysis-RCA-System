@@ -4,6 +4,9 @@
 
 ---
 
+<img width="627" height="402" alt="image" src="https://github.com/user-attachments/assets/a1fc1663-92d3-42a2-89e9-f5fa25ccc34e" />
+
+
 ## **📌 Project Overview**
 Telecom networks generate **huge volumes of logs** across **RAN, Core, and Backhaul** layers, making manual monitoring **slow** and **error-prone**.  
 This system automates the entire **incident lifecycle** — from **detection** to **remediation** to **RCA reporting** — using **Azure OpenAI** and **multi-agent orchestration** via **Semantic Kernel**.
@@ -71,6 +74,7 @@ pip install -r requirements.txt
 finally,Run the job:
 
 python .\network_fault_detection.py 
+
 
 
 
