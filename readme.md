@@ -11,6 +11,17 @@ This system automates the entire **incident lifecycle** — from **detection** t
 Demo: https://www.loom.com/share/806f70fae81248b48ebc4ee8b45c6165?sid=50d207fe-5809-40ca-8a49-61f81950e316
 ---
 
+## Slack Notifications:
+<img width="1255" height="601" alt="image" src="https://github.com/user-attachments/assets/ad60e9aa-bd55-4dbc-af46-c728fea82fc0" />
+
+
+## Terminal Log:
+<img width="1339" height="633" alt="image" src="https://github.com/user-attachments/assets/a7536eb6-1b65-44cc-a415-19e1fae9ea22" />
+
+
+
+
+
 
 ## **⚡ Key Features**
 - 🧠 **AI-Powered Incident Detection**  
@@ -52,4 +63,5 @@ git clone <reponame>
 pip install -r requirements.txt
 ** Add the required info in .env
 finally,Run the job:
+
 python .\network_fault_detection.py 
