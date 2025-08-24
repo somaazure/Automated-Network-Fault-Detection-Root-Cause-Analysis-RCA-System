@@ -35,7 +35,9 @@ Demo: https://www.loom.com/share/806f70fae81248b48ebc4ee8b45c6165?sid=50d207fe-5
 
 <img width="551" height="160" alt="image" src="https://github.com/user-attachments/assets/6ff9397c-c651-4411-a911-9921de3bb92f" />
 
+
 ** RCA Sample:
+
 <img width="643" height="372" alt="image" src="https://github.com/user-attachments/assets/9a198cf3-94f5-4bac-9ae9-24062743fe0f" />
 
 
@@ -81,6 +83,7 @@ pip install -r requirements.txt
 finally,Run the job:
 
 python .\network_fault_detection.py 
+
 
 
 
