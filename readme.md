@@ -19,7 +19,8 @@ Demo: https://www.loom.com/share/806f70fae81248b48ebc4ee8b45c6165?sid=50d207fe-5
 
 
 ## Terminal Log:
-<img width="1339" height="633" alt="image" src="https://github.com/user-attachments/assets/a7536eb6-1b65-44cc-a415-19e1fae9ea22" />
+<img width="934" height="425" alt="image" src="https://github.com/user-attachments/assets/f037d98c-6511-4fb3-afc4-527a39749fd0" />
+
 
 <img width="1018" height="543" alt="image" src="https://github.com/user-attachments/assets/529e15c1-17e5-4e16-ad8d-0c6dd77701a0" />
 
@@ -78,6 +79,7 @@ pip install -r requirements.txt
 finally,Run the job:
 
 python .\network_fault_detection.py 
+
 
 
 
