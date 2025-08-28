@@ -1,0 +1,33 @@
+markdown
+## Incident Summary
+On August 22, 2025, the system detected high latency at 5G tower ID TWR-889, with round-trip time (RTT) exceeding 300ms. Later in the day, a QoS profile adjustment was triggered to prioritize voice traffic, stabilizing key performance indicators (KPIs) such as jitter, loss, and Mean Opinion Score (MOS).
+
+## Incident Severity
+**Classification: P3**
+
+The severity is classified as P3 because the incident involved degraded latency at a single 5G tower, which was mitigated by a QoS profile switch. The impact was contained, and voice service quality was stabilized promptly. There was no evidence of widespread service degradation or critical service outages.
+
+## Impact Analysis
+The high latency at TWR-889 temporarily affected network performance for users connected to this specific tower. QoS adjustments ensured voice traffic stability with acceptable KPIs:
+- MOS: 4.3
+- Jitter: 9ms
+- Packet loss: 0.2%
+
+The impact was localized and had minimal effect on overall service quality.
+
+## Root Cause
+The root cause of the incident was high latency at 5G tower ID TWR-889, which exceeded the acceptable threshold (RTT > 300ms). The exact contributing factors to the latency are not specified in the logs provided.
+
+## Corrective Actions Taken
+1. QoS profile was switched to "voice" at 19:53:29.
+2. Guaranteed Bit Rate (GBR) bearers were prioritized, and jitter budget parameters were tuned.
+3. Voice service KPIs were stabilized promptly following the QoS adjustment.
+
+## Preventive Measures
+1. Investigate and address potential causes of high latency at TWR-889.
+2. Implement proactive monitoring and alerting mechanisms to detect and resolve latency issues faster.
+3. Conduct periodic audits of 5G tower performance, focusing on RTT and jitter thresholds.
+
+## Incident Timestamp
+Initial detection: 2025-08-22 10:26:47  
+Mitigation: 2025-08-22 19:53:29
