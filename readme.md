@@ -10,6 +10,15 @@ A practical system for analyzing telecom/network logs, classifying incident seve
 ![Streamlit UI](./Streamlit_int.png)
 
 ---
+Demo:
+https://www.loom.com/share/806f70fae81248b48ebc4ee8b45c6165?sid=e0f2fa0a-ee76-4f46-ac39-0d00a2d5de66
+
+
+Pinecone & Streamlit Integration:
+https://www.loom.com/share/f2ab42430e0648198cc0606d16a33401?sid=a93fd330-724d-468d-abda-d26e72b7090d
+
+
+---
 
 ## 1) Quick Start
 
@@ -322,3 +331,4 @@ Notes:
 ## 12) License
 
 MIT (or your preferred license). Update as needed.
+
