@@ -1,0 +1,12 @@
+streamlit
+python-dotenv
+openai
+pinecone
+langchain
+langchain-openai
+tiktoken
+matplotlib
+pandas
+azure-identity
+semantic-kernel
+requests

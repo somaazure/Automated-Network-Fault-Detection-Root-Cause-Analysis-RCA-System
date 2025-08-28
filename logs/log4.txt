@@ -1,0 +1,85 @@
+[2025-08-27 06:00:10] INFO   Node-11 Heartbeat OK. KPIs stable.
+[2025-08-27 06:02:20] INFO   Routine KPI scan: PRB Util avg 42%, MOS 4.7.
+[2025-08-27 06:04:12] INFO   Traffic handovers nominal across 24 cells.
+[2025-08-27 06:07:05] ALERT  Node-11 missed heartbeat for 3 intervals.
+[2025-08-27 06:07:35] ERROR  Node-11 is unreachable. Initiating auto-restart.
+[2025-08-27 06:08:15] INFO   Restart initiated for Node-11.
+[2025-08-27 06:09:10] INFO   Node-11 restored successfully. Heartbeat OK.
+[2025-08-27 06:12:35] INFO   KPIs normalized after Node-11 recovery.
+---
+[2025-08-27 07:00:45] INFO   Cell-75 PRB Util 48%. No congestion detected.
+[2025-08-27 07:02:21] ALERT  Cell-75 PRB Util climbing rapidly: 68%.
+[2025-08-27 07:03:50] ALERT  Cell-75 PRB Util hit 92% — nearing capacity breach.
+[2025-08-27 07:04:05] ALERT  Voice MOS dropped to 2.5. High jitter observed.
+[2025-08-27 07:05:30] INFO   QoS profile switched to prioritize voice.
+[2025-08-27 07:07:15] INFO   Scaling capacity on Cell-75 by 20%.
+[2025-08-27 07:09:05] INFO   KPIs improving: PRB Util 92% → 61%, MOS 4.1.
+[2025-08-27 07:12:40] INFO   Incident resolved. Monitoring continues.
+---
+[2025-08-27 08:00:01] INFO   Node-22 Heartbeat OK.
+[2025-08-27 08:05:10] ALERT  Fiber cut detected between Hub-East and Hub-North.
+[2025-08-27 08:05:55] ERROR  Multiple eNB nodes affected: Node-22, Node-24, Node-25 offline.
+[2025-08-27 08:07:12] ALERT  Service outage in Region-North: 320K subscribers affected.
+[2025-08-27 08:08:40] ALERT  Emergency escalation triggered.
+[2025-08-27 08:10:15] INFO   Backup path activation initiated via redundant rings.
+[2025-08-27 08:12:05] ALERT  Partial service restored for 45% users.
+[2025-08-27 08:15:50] INFO   Network rerouted successfully. Monitoring traffic.
+[2025-08-27 08:20:20] INFO   Root cause identified: third-party digging caused fiber cut.
+---
+[2025-08-27 09:00:10] INFO   KPI Summary Scan: All nodes healthy.
+[2025-08-27 09:05:55] ALERT  Node-39 CPU utilization exceeds 96%.
+[2025-08-27 09:06:35] ALERT  Packet scheduling delays increasing.
+[2025-08-27 09:07:25] INFO   Rerouting traffic from Cell-210 → Cell-211 to balance load.
+[2025-08-27 09:08:10] INFO   Automated reboot initiated for Node-39.
+[2025-08-27 09:09:05] INFO   Node-39 services restored successfully.
+[2025-08-27 09:10:15] INFO   KPIs normalized after CPU spike.
+---
+[2025-08-27 10:00:15] INFO   Cell-155 PRB Util: 72%.
+[2025-08-27 10:01:25] ALERT  Cell-155 PRB Util hit 91% — congestion detected.
+[2025-08-27 10:03:00] ALERT  Handover failures in Cell-155: 42%.
+[2025-08-27 10:04:12] INFO   QoS prioritization switched to streaming data.
+[2025-08-27 10:06:00] INFO   Traffic rerouted to Cell-156 to offload congestion.
+[2025-08-27 10:07:30] INFO   KPIs normalized. Incident downgraded to P3.
+---
+[2025-08-27 11:00:30] INFO   Health check OK for Node-88.
+[2025-08-27 11:05:15] ALERT  Node-88 backhaul link unstable.
+[2025-08-27 11:06:40] ALERT  Node-88 completely offline. Core route lost.
+[2025-08-27 11:07:55] ERROR  Node-88 recovery attempts failed.
+[2025-08-27 11:09:15] ALERT  Emergency escalation triggered for Node-88.
+[2025-08-27 11:12:10] INFO   Traffic partially restored via Node-89 fallback.
+[2025-08-27 11:15:45] INFO   RCA to confirm cause. Monitoring closely.
+---
+[2025-08-27 12:00:10] INFO   Routine KPI report generated successfully.
+[2025-08-27 12:03:20] ALERT  Cell-333 PRB Util: 95%. Severe congestion detected.
+[2025-08-27 12:04:15] ALERT  Throughput down from 480Mbps → 130Mbps.
+[2025-08-27 12:05:05] ALERT  Streaming quality SLA breached.
+[2025-08-27 12:06:30] INFO   Capacity scaling initiated: +25% for Cell-333.
+[2025-08-27 12:09:05] INFO   KPIs improving: PRB 95% → 66%, MOS 4.2.
+[2025-08-27 12:10:45] INFO   Incident severity reclassified as P2.
+---
+[2025-08-27 13:00:20] INFO   Network-wide stability scan: All regions healthy.
+[2025-08-27 13:03:55] ALERT  Node-55 intermittent packet losses detected.
+[2025-08-27 13:05:12] ALERT  Uplink jitter spike observed on Cell-441.
+[2025-08-27 13:07:30] INFO   QoS adjusted to stabilize uplink streaming.
+[2025-08-27 13:09:05] INFO   Incident downgraded to P3.
+---
+[2025-08-27 14:00:12] INFO   Node-102 KPI scan nominal.
+[2025-08-27 14:02:50] ALERT  Node-102 lost sync with Core.
+[2025-08-27 14:03:30] ERROR  Node-102 link down. Attempting automatic recovery.
+[2025-08-27 14:05:00] ALERT  Node-102 recovery failed. Escalating to L2 support.
+[2025-08-27 14:07:45] INFO   Manual restart successful for Node-102.
+[2025-08-27 14:09:20] INFO   KPIs normalized post recovery.
+---
+[2025-08-27 15:00:05] INFO   Cell-210 traffic stable.
+[2025-08-27 15:03:30] ALERT  Cell-210 PRB Util >90%. Severe congestion detected.
+[2025-08-27 15:04:55] ALERT  Latency spike: 210ms average.
+[2025-08-27 15:06:10] INFO   Rerouting traffic to Cell-213 and Cell-214.
+[2025-08-27 15:08:05] INFO   QoS adjusted for low-latency video.
+[2025-08-27 15:10:45] INFO   KPIs normalized after reroute.
+---
+[2025-08-27 16:00:45] INFO   Region-East daily scan: all stable.
+[2025-08-27 16:03:15] ALERT  Hub-South router CPU exceeds 98%.
+[2025-08-27 16:04:25] ALERT  Packet drop rate increasing sharply.
+[2025-08-27 16:05:10] INFO   Capacity scaling triggered +30%.
+[2025-08-27 16:06:45] INFO   Incident under observation; KPIs improving.
+[2025-08-27 16:09:55] INFO   Service fully stabilized.
