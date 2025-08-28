@@ -1,4 +1,4 @@
-# Automated Network Fault Detection & Root Cause Analysis (RCA)
+# Automated Network Fault Detection & Root Cause Analysis (RCA) using Generative AI.
 
 A practical system for analyzing telecom/network logs, classifying incident severity, executing simulated corrective actions, generating RCA reports, and surfacing insights via a Streamlit dashboard. It supports:
 
@@ -331,4 +331,5 @@ Notes:
 ## 12) License
 
 MIT (or your preferred license). Update as needed.
+
 
