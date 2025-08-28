@@ -6,6 +6,7 @@ A practical system for analyzing telecom/network logs, classifying incident seve
 - **Agent flows** for severity classification and RCA generation
 - **Slack notifications** for key incident lifecycle events
 - **Pinecone** for semantic search over RCA reports
+- **Kafka integration** for continuous log streaming and real-time processing
 
 ![Streamlit UI](./Streamlit_int.png)
 
@@ -63,6 +64,10 @@ streamlit run app.py
 - `utils/slack_notifier.py`: simple Slack webhook notifier
 - `logs/`: sample logs to process
 - `rca_reports/`: generated RCA files (created at runtime)
+- **Kafka Components:**
+  - `kafka_producer.py`: streams logs from `logs/` to Kafka topic
+  - `kafka_consumer.py`: consumes logs, writes to rolling files, triggers agent processing
+  - `docker-compose.yml`: Kafka + ZooKeeper setup for local development
 
 Architecture visual cues:
 
@@ -97,9 +102,18 @@ Create a `.env` in the project root. The following are used across components:
   - `AZURE_OPENAI_DEPLOYMENT_NAME` (your chat model deployment, e.g., `gpt-4o-mini`)
   - `AZURE_OPENAI_API_VERSION` (optional; default `2024-07-01-preview`)
 
+- Kafka (optional; for continuous log streaming)
+  - `KAFKA_BROKER` (default: `localhost:9092`)
+  - `KAFKA_TOPIC` (default: `network-logs`)
+  - `STREAM_LOG_DIR` (default: `./logs/ingested`)
+  - `DEBOUNCE_SEC` (default: `5`)
+  - `SLEEP_BETWEEN_LINES` (default: `0.5`)
+  - `LOOP` (default: `1`)
+
 Notes:
 - `storage/rca_vector_store.py` expects the Pinecone index to already exist. Create it in the Pinecone console (`https://app.pinecone.io`).
 - Missing Slack webhook is OK; notifications will simply be skipped.
+- Kafka integration requires Docker Desktop for local development.
 
 ---
 
@@ -266,14 +280,143 @@ Notes:
 
 ---
 
-## 11) Repository Scripts At‑a‑Glance
+## 11) Kafka Integration (Continuous Log Streaming)
+
+Enable real-time log processing with Kafka for continuous monitoring and automated RCA generation.
+
+### 11.1) Prerequisites
+
+- **Docker Desktop**: Install and start Docker Desktop
+- **Python dependencies**: `pip install -r requirements.txt` (includes `kafka-python`)
+
+### 11.2) Start Kafka Stack
+
+**Option A: Docker Desktop UI**
+1. Open Docker Desktop → Containers
+2. Create → From compose file → select `docker-compose.yml` → Create
+3. Verify both `zookeeper` and `kafka` show "Running" status
+
+**Option B: Command Line**
+```powershell
+# Start Kafka + ZooKeeper
+docker compose up -d
+
+# Verify containers are running
+docker compose ps
+
+# Check Kafka logs
+docker compose logs kafka --tail=50
+```
+
+**Expected output**: "Awaiting socket connections on 0.0.0.0:9092"
+
+### 11.3) Run Kafka Consumer (Processes Incoming Logs)
+
+Start the consumer first (keeps running):
+```powershell
+# Set environment variables
+$env:KAFKA_BROKER="localhost:9092"
+$env:KAFKA_TOPIC="network-logs"
+$env:STREAM_LOG_DIR="./logs"          # or "./logs/ingested" (default)
+$env:DEBOUNCE_SEC="5"                 # wait time after last line before processing
+
+# Start consumer
+python kafka_consumer.py
+```
+
+**What it does:**
+- Consumes log messages from Kafka topic `network-logs`
+- Appends lines to rolling files under `logs/` (or `logs/ingested/`)
+- After `DEBOUNCE_SEC` of inactivity, triggers `AgentOrchestrator.process_network_incident()`
+- Generates RCA files in `rca_reports/`
+
+### 11.4) Run Kafka Producer (Streams Static Logs)
+
+In a new terminal:
+```powershell
+# Set environment variables
+$env:KAFKA_BROKER="localhost:9092"
+$env:KAFKA_TOPIC="network-logs"
+$env:LOGS_DIR="./logs"
+$env:SLEEP_BETWEEN_LINES="0.5"        # throttle speed
+$env:LOOP="1"                         # keep replaying
+
+# Start producer
+python kafka_producer.py
+```
+
+**What it does:**
+- Reads `logs/*.txt` files line-by-line
+- Sends each line as a JSON message to Kafka topic
+- Continuously replays logs (set `LOOP=0` for single pass)
+
+### 11.5) Monitor and Analyze
+
+**Watch the flow:**
+- Files grow in `logs/` (or `logs/ingested/`)
+- Consumer terminal shows: `[Processed] stream_log1.txt | Severity: P2`
+- New RCA files appear in `rca_reports/`
+
+**Run Streamlit concurrently:**
+```powershell
+streamlit run app.py
+```
+- Go to **📂 RCA Management** → process/index new RCAs
+- Use **🔍 RCA Search** → query indexed content
+- View **📊 Analytics** → real-time dashboards
+
+### 11.6) Environment Variables Reference
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `KAFKA_BROKER` | `localhost:9092` | Kafka broker address |
+| `KAFKA_TOPIC` | `network-logs` | Topic name for log messages |
+| `STREAM_LOG_DIR` | `./logs/ingested` | Where consumer writes rolling files |
+| `DEBOUNCE_SEC` | `5` | Seconds to wait before processing file |
+| `SLEEP_BETWEEN_LINES` | `0.5` | Producer delay between lines |
+| `LOOP` | `1` | Producer replay mode (1=continuous, 0=single) |
+
+### 11.7) Troubleshooting Kafka
+
+**Consumer shows "NoBrokersAvailable":**
+- Ensure Docker stack is running: `docker compose ps`
+- Check Kafka logs: `docker compose logs kafka`
+- Verify port 9092 is free: `netstat -ano | findstr :9092`
+
+**Messages not flowing:**
+- Confirm topic exists (auto-created on first producer send)
+- Check environment variables match between producer/consumer
+- Verify `KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092` in compose
+
+**RCA not triggering:**
+- Increase `DEBOUNCE_SEC` if lines arrive too frequently
+- Check Azure OpenAI config for `AgentOrchestrator`
+- Monitor consumer terminal for error messages
+
+### 11.8) Stop Kafka Flow
+
+```powershell
+# Stop containers
+docker compose down
+
+# Close producer/consumer terminals
+# (Ctrl+C in each terminal)
+```
+
+---
+
+## 12) Repository Scripts At‑a‑Glance
 
 - `streamlit run app.py` — UI for RCA Management, Search, and Analytics
 - `python run_agents.py` — Simple agent pipeline
 - `python network_fault_detection.py` — Azure multi‑agent pipeline with Slack
+- `python kafka_producer.py` — Stream logs to Kafka
+- `python kafka_consumer.py` — Consume logs and trigger RCA processing
+- `docker compose up -d` — Start Kafka stack
+- `docker compose down` — Stop Kafka stack
 
 ---
 
-## 12) License
+## 13) License
 
 MIT (or your preferred license). Update as needed.
