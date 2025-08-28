@@ -10,3 +10,4 @@ pandas
 azure-identity
 semantic-kernel
 requests
+kafka-python

@@ -1,0 +1,10 @@
+[2025-08-28 14:30:01] ALERT  Node-ENB123: Heartbeat missed. Radio process crash suspected.
+[2025-08-28 14:30:03] INFO   KPI: PRB util 91%, RRC setup success 62%, packet loss 2.3%.
+[2025-08-28 14:30:04] ALERT  Backhaul: Latency spike detected on link BH-45 (320ms).
+[2025-08-28 14:30:06] ERROR  Node-ENB123: Scheduler restart attempt failed.
+[2025-08-28 14:30:10] CRITICAL Cluster: Multiple eNB degraded in sector S-12.
+[2025-08-28 14:30:14] INFO   Ops: Temporary QoS profile applied to prioritize voice.
+[2025-08-28 14:30:18] INFO   KPIs: MOS 3.9, jitter 18ms, loss 1.1%.
+[2025-08-28 14:30:22] ALERT  Router CR-45: Configuration mismatch detected.
+[2025-08-28 14:30:25] INFO   Recovery: Router config rollback initiated.
+[2025-08-28 14:30:30] INFO   Status: Network stability improving, KPIs normalizing.
