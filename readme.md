@@ -131,8 +131,6 @@ Tip: If Pinecone is not configured or index missing, the Search tab will show er
 
 Visuals:
 
-![Streamlit UI](./Streamlit_int.png)
-
 ![Agent Flow](./Agent_PlayG.png)
 
 ## 5) Running the Agent Orchestrator (Simple)
