@@ -3,6 +3,9 @@
 <img width="532" height="852" alt="image" src="https://github.com/user-attachments/assets/594fcf12-4837-426d-8649-4315c3543e9b" />
 
 
+Demo:
+https://www.loom.com/share/ef9dbe155c6841f09fc0600ed324b441?sid=860d051f-7127-4285-ac09-304ff0ec6bdb
+
 A practical system for analyzing telecom/network logs, classifying incident severity, executing simulated corrective actions, generating RCA reports, and surfacing insights via a Streamlit dashboard. It supports:
 
 - **Streamlit UI** for RCA Management, Search (RAG over Pinecone), and Analytics
@@ -417,4 +420,5 @@ docker compose down
 ## 13) License
 
 MIT (or your preferred license). Update as needed.
+
 
