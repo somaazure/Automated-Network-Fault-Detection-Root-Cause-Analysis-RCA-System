@@ -1,0 +1,31 @@
+# Demo RCA Report - Network Incident Analysis
+
+## Incident Summary
+Sample root cause analysis report demonstrating the automated RCA system capabilities.
+
+## Incident Severity
+P2 (Major) - Service degradation affecting multiple customers
+
+## Impact Analysis
+- Network latency increased by 45%
+- Packet loss rate: 2.3%
+- Affected users: ~1500 subscribers
+- Duration: 2 hours 15 minutes
+
+## Root Cause
+Primary cause identified as router configuration mismatch following recent firmware update. Secondary contributing factors included:
+- Insufficient bandwidth allocation during peak hours
+- QoS policy conflicts between voice and data traffic
+
+## Corrective Actions Taken
+1. Router configuration rollback to stable version
+2. Bandwidth reallocation for affected sectors
+3. QoS policy optimization for voice traffic prioritization
+
+## Preventive Measures
+- Implement configuration validation before deployment
+- Enhanced monitoring for QoS policy conflicts
+- Scheduled maintenance window for future updates
+
+## Incident Timestamp
+2025-08-28 14:30:00 UTC
