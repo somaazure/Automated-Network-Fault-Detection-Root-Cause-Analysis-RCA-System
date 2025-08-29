@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Fault Detection RCA System - LinkedIn Visual</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            background: linear-gradient(45deg, #00d4ff, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: #b8b8b8;
+        }
+
+        .architecture-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            height: calc(100vh - 120px);
+            flex: 1;
+            position: relative;
+        }
+
+        .flow-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            position: relative;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .section:hover {
+            border-color: #00d4ff;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: #00d4ff;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Different shapes for different components */
+        .component {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .component:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+            transform: scale(1.02);
+        }
+
+        .component-icon {
+            font-size: 1.5rem;
+            margin-right: 8px;
+        }
+
+        /* Database shape (cylindrical) */
+        .component.database {
+            border-radius: 20px 20px 8px 8px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 212, 255, 0.05));
+        }
+
+        /* Server shape */
+        .component.server {
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(255, 107, 107, 0.05));
+            border-color: rgba(255, 107, 107, 0.3);
+        }
+
+        /* AI Agent shape */
+        .component.ai-agent {
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 217, 61, 0.15), rgba(255, 217, 61, 0.05));
+            border-color: rgba(255, 217, 61, 0.3);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px auto;
+        }
+
+        /* Vector DB shape */
+        .component.vector-db {
+            border-radius: 8px 20px 8px 20px;
+            background: linear-gradient(135deg, rgba(255, 159, 243, 0.15), rgba(255, 159, 243, 0.05));
+            border-color: rgba(255, 159, 243, 0.3);
+        }
+
+        /* UI Component shape */
+        .component.ui-component {
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(84, 160, 255, 0.15), rgba(84, 160, 255, 0.05));
+            border-color: rgba(84, 160, 255, 0.3);
+        }
+
+        /* Cascade Flow Connections - Properly Connected */
+        .cascade-flow {
+            position: absolute;
+            background: linear-gradient(180deg, #00d4ff, #ff6b6b);
+            animation: cascadePulse 2s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        .cascade-flow.vertical {
+            width: 4px;
+            height: 30px;
+        }
+
+        .cascade-flow.horizontal {
+            height: 4px;
+            width: 40px;
+        }
+
+        /* Flow Arrows - Properly Positioned */
+        .flow-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            z-index: 2;
+        }
+
+        .flow-arrow.down {
+            border-top: 8px solid #00d4ff;
+        }
+
+        .flow-arrow.right {
+            border-left: 8px solid #00d4ff;
+        }
+
+        /* Internal Section Connections */
+        .internal-flow {
+            position: absolute;
+            background: linear-gradient(90deg, #4ecdc4, #ff9ff3);
+            height: 2px;
+            width: 60px;
+            animation: internalFlow 3s infinite ease-in-out;
+        }
+
+        .internal-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            border-left: 6px solid #4ecdc4;
+        }
+
+        /* Data Flow Particles */
+        .data-flow {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            animation: dataFlow 4s infinite linear;
+            z-index: 3;
+        }
+
+        .kafka-flow {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #4ecdc4;
+            border-radius: 50%;
+            animation: kafkaFlow 3s infinite linear;
+            z-index: 3;
+        }
+
+        .agent-flow {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ffd93d;
+            border-radius: 50%;
+            animation: agentFlow 2.5s infinite linear;
+            z-index: 3;
+        }
+
+        .pinecone-flow {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ff9ff3;
+            border-radius: 50%;
+            animation: pineconeFlow 3.5s infinite linear;
+            z-index: 3;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tech-item {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+        }
+
+        .tech-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .tech-name {
+            font-weight: 600;
+            color: #00d4ff;
+            font-size: 0.75rem;
+        }
+
+        .tech-desc {
+            color: #b8b8b8;
+            font-size: 0.65rem;
+            margin-top: 5px;
+        }
+
+        @keyframes cascadePulse {
+            0%, 100% {
+                opacity: 0.7;
+                box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.9);
+            }
+        }
+
+        @keyframes internalFlow {
+            0%, 100% {
+                opacity: 0.6;
+                box-shadow: 0 0 5px rgba(78, 205, 196, 0.5);
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 15px rgba(78, 205, 196, 0.8);
+            }
+        }
+
+        @keyframes dataFlow {
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes kafkaFlow {
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes agentFlow {
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pineconeFlow {
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 212, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+            }
+        }
+
+        .glow {
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 8px #00d4ff, 0 0 15px #00d4ff;
+            }
+            to {
+                box-shadow: 0 0 15px #00d4ff, 0 0 25px #00d4ff;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .flow-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .section {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .tech-stack {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Network Fault Detection RCA System</h1>
+            <p>Automated AI-Powered Network Incident Response & Root Cause Analysis</p>
+        </div>
+
+        <div class="architecture-container">
+            <!-- Row 1: Data Ingestion -->
+            <div class="flow-row">
+                <div class="section">
+                    <div class="section-title">📥 Data Ingestion</div>
+                    <div class="component database">
+                        <span class="component-icon">📁</span>Network Logs
+                    </div>
+                    <div class="component server">
+                        <span class="component-icon">🐳</span>Docker Kafka
+                    </div>
+                    <div class="component server">
+                        <span class="component-icon">📡</span>Producer
+                    </div>
+                    <div class="component server">
+                        <span class="component-icon">📨</span>Consumer
+                    </div>
+                    
+                    <!-- Internal connections within Data Ingestion -->
+                    <div class="internal-flow" style="top: 25%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 25%; left: 50%; transform: translateX(30px);"></div>
+                    <div class="internal-flow" style="top: 40%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 40%; left: 50%; transform: translateX(30px);"></div>
+                    <div class="internal-flow" style="top: 55%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 55%; left: 50%; transform: translateX(30px);"></div>
+                </div>
+            </div>
+
+            <!-- Cascade Flow 1: Data Ingestion to Processing -->
+            <div class="cascade-flow vertical" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+            <div class="flow-arrow down" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+
+            <!-- Row 2: Processing -->
+            <div class="flow-row">
+                <div class="section">
+                    <div class="section-title">⚙️ Processing</div>
+                    <div class="component database">
+                        <span class="component-icon">📝</span>Log Processor
+                    </div>
+                    <div class="component database">
+                        <span class="component-icon">🗂️</span>RCA Reports
+                    </div>
+                    <div class="component database">
+                        <span class="component-icon">🔍</span>Analytics
+                    </div>
+                    <div class="component database">
+                        <span class="component-icon">📊</span>Storage
+                    </div>
+                    
+                    <!-- Internal connections within Processing -->
+                    <div class="internal-flow" style="top: 25%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 25%; left: 50%; transform: translateX(30px);"></div>
+                    <div class="internal-flow" style="top: 40%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 40%; left: 50%; transform: translateX(30px);"></div>
+                    <div class="internal-flow" style="top: 55%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 55%; left: 50%; transform: translateX(30px);"></div>
+                </div>
+            </div>
+
+            <!-- Cascade Flow 2: Processing to AI Agents -->
+            <div class="cascade-flow vertical" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+            <div class="flow-arrow down" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+
+            <!-- Row 3: AI Agents -->
+            <div class="flow-row">
+                <div class="section">
+                    <div class="section-title">🤖 AI Agents</div>
+                    <div class="component ai-agent glow">
+                        <span class="component-icon">👨‍💼</span>Incident Manager
+                    </div>
+                    <div class="component ai-agent glow">
+                        <span class="component-icon">🔧</span>Network Ops
+                    </div>
+                    <div class="component ai-agent glow">
+                        <span class="component-icon">⚠️</span>Severity Classifier
+                    </div>
+                    <div class="component ai-agent glow">
+                        <span class="component-icon">🔍</span>RCA Generator
+                    </div>
+                    
+                    <!-- Internal connections within AI Agents -->
+                    <div class="internal-flow" style="top: 35%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 35%; left: 50%; transform: translateX(30px);"></div>
+                    <div class="internal-flow" style="top: 50%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 50%; left: 50%; transform: translateX(30px);"></div>
+                    <div class="internal-flow" style="top: 65%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 65%; left: 50%; transform: translateX(30px);"></div>
+                </div>
+            </div>
+
+            <!-- Cascade Flow 3: AI Agents to Vector Search -->
+            <div class="cascade-flow vertical" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+            <div class="flow-arrow down" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+
+            <!-- Row 4: Vector Search -->
+            <div class="flow-row">
+                <div class="section">
+                    <div class="section-title">🧠 Vector Search</div>
+                    <div class="component vector-db">
+                        <span class="component-icon">🔤</span>OpenAI Embeddings
+                    </div>
+                    <div class="component vector-db">
+                        <span class="component-icon">🌲</span>Pinecone DB
+                    </div>
+                    <div class="component vector-db">
+                        <span class="component-icon">🔍</span>RAG Engine
+                    </div>
+                    <div class="component vector-db">
+                        <span class="component-icon">📚</span>Knowledge Base
+                    </div>
+                    
+                    <!-- Internal connections within Vector Search -->
+                    <div class="internal-flow" style="top: 25%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 25%; left: 50%; transform: translateX(30px);"></div>
+                    <div class="internal-flow" style="top: 40%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 40%; left: 50%; transform: translateX(30px);"></div>
+                    <div class="internal-flow" style="top: 55%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 55%; left: 50%; transform: translateX(30px);"></div>
+                </div>
+            </div>
+
+            <!-- Cascade Flow 4: Vector Search to User Interface -->
+            <div class="cascade-flow vertical" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+            <div class="flow-arrow down" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+
+            <!-- Row 5: User Interface -->
+            <div class="flow-row">
+                <div class="section">
+                    <div class="section-title">🖥️ User Interface</div>
+                    <div class="component ui-component">
+                        <span class="component-icon">📊</span>Streamlit Dashboard
+                    </div>
+                    <div class="component ui-component">
+                        <span class="component-icon">📱</span>Slack Alerts
+                    </div>
+                    <div class="component ui-component">
+                        <span class="component-icon">📈</span>Analytics
+                    </div>
+                    <div class="component ui-component">
+                        <span class="component-icon">🔧</span>Makefile Tools
+                    </div>
+                    
+                    <!-- Internal connections within User Interface -->
+                    <div class="internal-flow" style="top: 25%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 25%; left: 50%; transform: translateX(30px);"></div>
+                    <div class="internal-flow" style="top: 40%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 40%; left: 50%; transform: translateX(30px);"></div>
+                    <div class="internal-flow" style="top: 55%; left: 50%; transform: translateX(-50%); width: 60px;"></div>
+                    <div class="internal-arrow" style="top: 55%; left: 50%; transform: translateX(30px);"></div>
+                </div>
+            </div>
+
+            <!-- Cascade Flow 5: User Interface to Tech Stack -->
+            <div class="cascade-flow vertical" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+            <div class="flow-arrow down" style="top: 0; left: 50%; transform: translateX(-50%);"></div>
+
+            <!-- Row 6: Tech Stack -->
+            <div class="flow-row">
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <span class="tech-icon">🐍</span>
+                        <div class="tech-name">Python 3.10+</div>
+                        <div class="tech-desc">Core Runtime</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">🤖</span>
+                        <div class="tech-name">Azure AI</div>
+                        <div class="tech-desc">Multi-Agent</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">🧠</span>
+                        <div class="tech-name">Semantic Kernel</div>
+                        <div class="tech-desc">AI Framework</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">🔤</span>
+                        <div class="tech-name">OpenAI GPT-4</div>
+                        <div class="tech-desc">Text AI</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">🌲</span>
+                        <div class="tech-name">Pinecone</div>
+                        <div class="tech-desc">Vector DB</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">📊</span>
+                        <div class="tech-name">Streamlit</div>
+                        <div class="tech-desc">Dashboard</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">🐳</span>
+                        <div class="tech-name">Docker</div>
+                        <div class="tech-desc">Container</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">📡</span>
+                        <div class="tech-name">Kafka</div>
+                        <div class="tech-desc">Streaming</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">📱</span>
+                        <div class="tech-name">Slack API</div>
+                        <div class="tech-desc">Alerts</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">📈</span>
+                        <div class="tech-name">Pandas</div>
+                        <div class="tech-desc">Analytics</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">🔐</span>
+                        <div class="tech-name">Azure Identity</div>
+                        <div class="tech-desc">Auth</div>
+                    </div>
+                    <div class="tech-item">
+                        <span class="tech-icon">⚡</span>
+                        <div class="tech-name">AsyncIO</div>
+                        <div class="tech-desc">Concurrent</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click effects
+            document.querySelectorAll('.component, .tech-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+
+            // Continuous flow animation
+            setInterval(() => {
+                const flows = document.querySelectorAll('.data-flow, .kafka-flow, .agent-flow, .pinecone-flow');
+                flows.forEach(flow => {
+                    flow.style.animation = 'none';
+                    flow.offsetHeight; // Trigger reflow
+                    flow.style.animation = null;
+                });
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
