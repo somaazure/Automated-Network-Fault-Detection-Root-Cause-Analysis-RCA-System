@@ -143,12 +143,6 @@ Tip: If Pinecone is not configured or index missing, the Search tab will show er
 - Switch to `🔍 RCA Search` → ask a question like: "What were the top root causes?"
 - Review `📊 Analytics` for simple counts.
 
-Visuals:
-
-![Streamlit UI](./Streamlit_int.png)
-
-![Agent Flow](./Agent_PlayG.png)
-
 ## 5) Running the Agent Orchestrator (Simple)
 
 This path uses the Semantic Kernel setup in `agents/agent_orchestrator.py`.
